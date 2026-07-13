@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lottie/lottie.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/social_button.dart';
 
@@ -179,7 +180,31 @@ class HeroSection extends StatelessWidget {
   }
 
   Widget _buildHeroImage(double size) {
-    return _AnimatedProfileContainer(size: size);
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Container(
+          width: size * 0.8,
+          height: size * 0.8,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.primary.withOpacity(0.15),
+                blurRadius: 45.r,
+                spreadRadius: 20.r,
+              ),
+            ],
+          ),
+        ),
+        Lottie.asset(
+          'assets/lottie/Coding Genius.json',
+          width: size * 2,
+          height: size * 2,
+          fit: BoxFit.contain,
+        ),
+      ],
+    );
   }
 
   Widget _buildScrollDownIndicator() {
