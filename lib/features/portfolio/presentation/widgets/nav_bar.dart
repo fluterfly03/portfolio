@@ -66,7 +66,9 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
           height: 70.h,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.3),
+            color: AppColors.isDark
+                ? Colors.black.withOpacity(0.3)
+                : Colors.white.withOpacity(0.4),
             border: Border(
               bottom: BorderSide(color: AppColors.glassBorder, width: 1),
             ),
@@ -175,6 +177,33 @@ class _NavTabState extends State<_NavTab> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = AppColors.isDark;
+    
+    Color tabBgColor;
+    Color tabBorderColor;
+    Color tabTextColor;
+    
+    if (isDark) {
+      tabBgColor = widget.isSelected
+          ? AppColors.primary.withOpacity(0.2)
+          : (_isHovered
+              ? AppColors.primary.withOpacity(0.08)
+              : Colors.transparent);
+      tabBorderColor = widget.isSelected ? AppColors.primary : Colors.transparent;
+      tabTextColor = (widget.isSelected || _isHovered)
+          ? AppColors.textPrimary
+          : AppColors.textSecondary;
+    } else {
+      // Light Mode (matches user screenshot)
+      tabBgColor = _isHovered ? AppColors.primary.withOpacity(0.05) : Colors.transparent;
+      tabBorderColor = widget.isSelected
+          ? AppColors.primary
+          : (_isHovered ? AppColors.primary.withOpacity(0.3) : Colors.transparent);
+      tabTextColor = (widget.isSelected || _isHovered)
+          ? AppColors.primary
+          : AppColors.textPrimary;
+    }
+
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
@@ -185,23 +214,17 @@ class _NavTabState extends State<_NavTab> {
           duration: const Duration(milliseconds: 200),
           padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
           decoration: BoxDecoration(
-            color: widget.isSelected
-                ? AppColors.primary.withOpacity(0.2)
-                : (_isHovered
-                      ? AppColors.primary.withOpacity(0.08)
-                      : Colors.transparent),
+            color: tabBgColor,
             borderRadius: BorderRadius.circular(20.r),
             border: Border.all(
-              color: widget.isSelected ? AppColors.primary : Colors.transparent,
+              color: tabBorderColor,
               width: 1,
             ),
           ),
           child: Text(
             widget.title,
             style: TextStyle(
-              color: (widget.isSelected || _isHovered)
-                  ? AppColors.textPrimary
-                  : AppColors.textSecondary,
+              color: tabTextColor,
               fontSize: 14.sp,
               fontWeight: widget.isSelected ? FontWeight.bold : FontWeight.w500,
             ),
@@ -240,11 +263,11 @@ class _ResumeButtonState extends State<_ResumeButton> {
             borderRadius: BorderRadius.circular(12.r),
           ),
         ),
-        icon: Icon(Icons.download, size: 18.r, color: AppColors.textPrimary),
+        icon: Icon(Icons.download, size: 18.r, color: Colors.white),
         label: Text(
           'Resume',
           style: TextStyle(
-            color: AppColors.textPrimary,
+            color: Colors.white,
             fontSize: 14.sp,
             fontWeight: FontWeight.bold,
           ),

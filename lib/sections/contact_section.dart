@@ -237,9 +237,9 @@ class _ContactFormState extends State<_ContactForm> {
                   if (_formKey.currentState!.validate()) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text(
+                        content: const Text(
                           "Thank you! Your message has been sent.",
-                          style: TextStyle(color: AppColors.textPrimary),
+                          style: TextStyle(color: Colors.white),
                         ),
                         backgroundColor: AppColors.primary,
                       ),
@@ -264,12 +264,12 @@ class _ContactFormState extends State<_ContactForm> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.send, color: AppColors.textPrimary, size: 16.r),
+                    Icon(Icons.send, color: Colors.white, size: 16.r),
                     SizedBox(width: 8.w),
                     Text(
                       "Send Message",
                       style: TextStyle(
-                        color: AppColors.textPrimary,
+                        color: Colors.white,
                         fontSize: 14.sp,
                         fontWeight: FontWeight.bold,
                       ),

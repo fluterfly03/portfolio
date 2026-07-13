@@ -413,12 +413,20 @@ class _HeroActionButtonState extends State<_HeroActionButton> {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(widget.icon, color: AppColors.textPrimary, size: 18.r),
+              Icon(
+                widget.icon,
+                color: widget.isPrimary
+                    ? Colors.white
+                    : (AppColors.isDark
+                        ? AppColors.textPrimary
+                        : AppColors.primary),
+                size: 18.r,
+              ),
               SizedBox(width: 8.w),
               Text(
                 widget.text,
                 style: TextStyle(
-                  color: AppColors.textPrimary,
+                  color: widget.isPrimary ? Colors.white : AppColors.textPrimary,
                   fontSize: 15.sp,
                   fontWeight: FontWeight.bold,
                 ),

@@ -32,8 +32,8 @@ class AppColors {
   static Color get textSecondary => isDark ? const Color(0xFFAFA090) : const Color(0xFF6E6050);
 
   // Utility colors
-  static Color get glassBorder => isDark ? const Color(0x28FF6B00) : const Color(0x1FFF6B00);
-  static Color get glassBackground => isDark ? const Color(0x0CFFFFFF) : const Color(0x0C000000);
+  static Color get glassBorder => isDark ? const Color(0x28FF6B00) : const Color(0xFFE2E2E2);
+  static Color get glassBackground => isDark ? const Color(0x0CFFFFFF) : const Color(0xFFFFFFFF);
 
   // Dark/Light toggle
   static Color get cardBg => isDark ? const Color(0xFF1F1A15) : const Color(0xFFFFFDF9);
