@@ -88,7 +88,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
                         ),
                       ),
                       Text(
-                        'P',
+                        'R',
                         style: TextStyle(
                           color: AppColors.textPrimary,
                           fontSize: 22.sp,
