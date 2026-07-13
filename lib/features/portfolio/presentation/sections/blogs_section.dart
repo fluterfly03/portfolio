@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../theme/colors.dart';
+import '../../../../core/theme/app_colors.dart';
 
 class BlogItem {
   final String title;
@@ -24,19 +24,22 @@ class BlogsSection extends StatelessWidget {
       title: "Flutter Web Performance Optimization",
       date: "May 12, 2026",
       readTime: "5 min read",
-      teaser: "Learn how to optimize your Flutter Web builds for faster loads, smooth animations, and better SEO discoverability.",
+      teaser:
+          "Learn how to optimize your Flutter Web builds for faster loads, smooth animations, and better SEO discoverability.",
     ),
     BlogItem(
       title: "State Management in 2026: Choosing the Right Package",
       date: "Mar 28, 2026",
       readTime: "8 min read",
-      teaser: "A comprehensive breakdown comparing BLoC, Riverpod, and Signal solutions for modern, scalable Flutter applications.",
+      teaser:
+          "A comprehensive breakdown comparing BLoC, Riverpod, and Signal solutions for modern, scalable Flutter applications.",
     ),
     BlogItem(
       title: "Creating High Fidelity Glassmorphic UI in Flutter",
       date: "Jan 15, 2026",
       readTime: "4 min read",
-      teaser: "Deep dive into using BackdropFilter, custom gradients, and transparent borders to achieve beautiful frosted glass designs.",
+      teaser:
+          "Deep dive into using BackdropFilter, custom gradients, and transparent borders to achieve beautiful frosted glass designs.",
     ),
   ];
 
@@ -44,10 +47,8 @@ class BlogsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final isDesktop = width > 900;
-    
-    final crossAxisCount = width > 1100 
-        ? 3 
-        : (width > 700 ? 2 : 1);
+
+    final crossAxisCount = width > 1100 ? 3 : (width > 700 ? 2 : 1);
 
     return Container(
       padding: EdgeInsets.symmetric(
@@ -137,7 +138,7 @@ class _BlogCardState extends State<_BlogCard> {
                     color: AppColors.primary.withOpacity(0.12),
                     blurRadius: 15.r,
                     spreadRadius: 1.r,
-                  )
+                  ),
                 ]
               : [],
         ),
@@ -196,7 +197,9 @@ class _BlogCardState extends State<_BlogCard> {
                 Text(
                   "Read Article",
                   style: TextStyle(
-                    color: _isHovered ? AppColors.primary : AppColors.textPrimary,
+                    color: _isHovered
+                        ? AppColors.primary
+                        : AppColors.textPrimary,
                     fontSize: 13.sp,
                     fontWeight: FontWeight.bold,
                   ),

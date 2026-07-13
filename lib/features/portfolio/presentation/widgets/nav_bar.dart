@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../theme/colors.dart';
+import '../../../../core/theme/app_colors.dart';
 
 class HexagonPainter extends CustomPainter {
   final Color color;
@@ -19,7 +19,7 @@ class HexagonPainter extends CustomPainter {
     final path = Path();
     final w = size.width;
     final h = size.height;
-    
+
     path.moveTo(w * 0.5, 0);
     path.lineTo(w, h * 0.25);
     path.lineTo(w, h * 0.75);
@@ -66,10 +66,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
           decoration: BoxDecoration(
             color: Colors.black.withOpacity(0.3),
             border: const Border(
-              bottom: BorderSide(
-                color: AppColors.glassBorder,
-                width: 1,
-              ),
+              bottom: BorderSide(color: AppColors.glassBorder, width: 1),
             ),
           ),
           padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
@@ -85,7 +82,10 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
                     children: [
                       CustomPaint(
                         size: Size(40.w, 44.h),
-                        painter: HexagonPainter(color: AppColors.primary, strokeWidth: 1.5),
+                        painter: HexagonPainter(
+                          color: AppColors.primary,
+                          strokeWidth: 1.5,
+                        ),
                       ),
                       Text(
                         'P',
@@ -128,11 +128,19 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
                 SizedBox(width: 16.w),
                 // Icons (Theme, Palette, Resume)
                 IconButton(
-                  icon: Icon(Icons.dark_mode_outlined, color: AppColors.textSecondary, size: 20.r),
+                  icon: Icon(
+                    Icons.dark_mode_outlined,
+                    color: AppColors.textSecondary,
+                    size: 20.r,
+                  ),
                   onPressed: () {},
                 ),
                 IconButton(
-                  icon: Icon(Icons.palette_outlined, color: AppColors.textSecondary, size: 20.r),
+                  icon: Icon(
+                    Icons.palette_outlined,
+                    color: AppColors.textSecondary,
+                    size: 20.r,
+                  ),
                   onPressed: () {},
                 ),
                 SizedBox(width: 16.w),
@@ -182,22 +190,22 @@ class _NavTabState extends State<_NavTab> {
           duration: const Duration(milliseconds: 200),
           padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
           decoration: BoxDecoration(
-            color: widget.isSelected 
-                ? AppColors.primary.withOpacity(0.2) 
-                : (_isHovered ? AppColors.primary.withOpacity(0.08) : Colors.transparent),
+            color: widget.isSelected
+                ? AppColors.primary.withOpacity(0.2)
+                : (_isHovered
+                      ? AppColors.primary.withOpacity(0.08)
+                      : Colors.transparent),
             borderRadius: BorderRadius.circular(20.r),
             border: Border.all(
-              color: widget.isSelected 
-                  ? AppColors.primary 
-                  : Colors.transparent,
+              color: widget.isSelected ? AppColors.primary : Colors.transparent,
               width: 1,
             ),
           ),
           child: Text(
             widget.title,
             style: TextStyle(
-              color: (widget.isSelected || _isHovered) 
-                  ? AppColors.textPrimary 
+              color: (widget.isSelected || _isHovered)
+                  ? AppColors.textPrimary
                   : AppColors.textSecondary,
               fontSize: 14.sp,
               fontWeight: widget.isSelected ? FontWeight.bold : FontWeight.w500,

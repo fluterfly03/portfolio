@@ -3,8 +3,8 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../theme/colors.dart';
-import '../widgets/social_button.dart';
+import '../../../../core/theme/app_colors.dart';
+import '../../../../core/widgets/social_button.dart';
 
 class HeroSection extends StatelessWidget {
   final VoidCallback onViewProjectsTap;
@@ -16,7 +16,7 @@ class HeroSection extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final width = size.width;
     final isDesktop = width > 900;
-    
+
     return Container(
       constraints: BoxConstraints(minHeight: size.height - 70.h),
       padding: EdgeInsets.symmetric(
@@ -33,10 +33,7 @@ class HeroSection extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Expanded(
-                        flex: 6,
-                        child: _buildHeroText(context, true),
-                      ),
+                      Expanded(flex: 6, child: _buildHeroText(context, true)),
                       SizedBox(width: 40.w),
                       Expanded(
                         flex: 4,
@@ -69,7 +66,9 @@ class HeroSection extends StatelessWidget {
   }
 
   Widget _buildHeroText(BuildContext context, bool isDesktop) {
-    final alignment = isDesktop ? CrossAxisAlignment.start : CrossAxisAlignment.center;
+    final alignment = isDesktop
+        ? CrossAxisAlignment.start
+        : CrossAxisAlignment.center;
     final textAlignment = isDesktop ? TextAlign.left : TextAlign.center;
 
     return Column(
@@ -92,10 +91,14 @@ class HeroSection extends StatelessWidget {
         SizedBox(height: 8.h),
         ShaderMask(
           shaderCallback: (bounds) => const LinearGradient(
-            colors: [AppColors.primary, AppColors.secondary, AppColors.accentGlow],
+            colors: [
+              AppColors.primary,
+              AppColors.secondary,
+              AppColors.accentGlow,
+            ],
           ).createShader(bounds),
           child: Text(
-            "Riya\nBiswas",
+            "Prathmesh\nParab",
             textAlign: textAlignment,
             style: TextStyle(
               fontSize: isDesktop ? 68.sp : 44.sp,
@@ -144,17 +147,31 @@ class HeroSection extends StatelessWidget {
         SizedBox(height: 32.h),
         // Social icons
         Row(
-          mainAxisAlignment: isDesktop ? MainAxisAlignment.start : MainAxisAlignment.center,
+          mainAxisAlignment: isDesktop
+              ? MainAxisAlignment.start
+              : MainAxisAlignment.center,
           children: [
             SocialButton(icon: FontAwesomeIcons.github, url: "", onTap: () {}),
             SizedBox(width: 12.w),
-            SocialButton(icon: FontAwesomeIcons.linkedin, url: "", onTap: () {}),
+            SocialButton(
+              icon: FontAwesomeIcons.linkedin,
+              url: "",
+              onTap: () {},
+            ),
             SizedBox(width: 12.w),
-            SocialButton(icon: FontAwesomeIcons.bookOpen, url: "", onTap: () {}),
+            SocialButton(
+              icon: FontAwesomeIcons.bookOpen,
+              url: "",
+              onTap: () {},
+            ),
             SizedBox(width: 12.w),
             SocialButton(icon: FontAwesomeIcons.code, url: "", onTap: () {}),
             SizedBox(width: 12.w),
-            SocialButton(icon: FontAwesomeIcons.envelope, url: "", onTap: () {}),
+            SocialButton(
+              icon: FontAwesomeIcons.envelope,
+              url: "",
+              onTap: () {},
+            ),
           ],
         ),
       ],
@@ -178,7 +195,11 @@ class TypewriterSubtitle extends StatefulWidget {
 }
 
 class _TypewriterSubtitleState extends State<TypewriterSubtitle> {
-  final List<String> _roles = ["Frontend Developer", "Flutter Developer", "Mobile Engineer"];
+  final List<String> _roles = [
+    "Frontend Developer",
+    "Flutter Developer",
+    "Mobile Engineer",
+  ];
   int _roleIndex = 0;
   int _charIndex = 0;
   String _currentText = "";
@@ -188,7 +209,9 @@ class _TypewriterSubtitleState extends State<TypewriterSubtitle> {
   @override
   void initState() {
     super.initState();
-    _startTyping();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _startTyping();
+    });
   }
 
   @override
@@ -266,22 +289,24 @@ class _BlinkingCursor extends StatefulWidget {
   State<_BlinkingCursor> createState() => _BlinkingCursorState();
 }
 
-class _BlinkingCursorState extends State<_BlinkingCursor> with SingleTickerProviderStateMixin {
+class _BlinkingCursorState extends State<_BlinkingCursor>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 500),
-    )..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          _controller.reverse();
-        } else if (status == AnimationStatus.dismissed) {
-          _controller.forward();
-        }
-      });
+    _controller =
+        AnimationController(
+          vsync: this,
+          duration: const Duration(milliseconds: 500),
+        )..addStatusListener((status) {
+          if (status == AnimationStatus.completed) {
+            _controller.reverse();
+          } else if (status == AnimationStatus.dismissed) {
+            _controller.forward();
+          }
+        });
     _controller.forward();
   }
 
@@ -338,12 +363,16 @@ class _HeroActionButtonState extends State<_HeroActionButton> {
           duration: const Duration(milliseconds: 200),
           padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
           decoration: BoxDecoration(
-            color: widget.isPrimary 
-                ? (_isHovered ? AppColors.primary.withOpacity(0.85) : AppColors.primary)
+            color: widget.isPrimary
+                ? (_isHovered
+                      ? AppColors.primary.withOpacity(0.85)
+                      : AppColors.primary)
                 : Colors.transparent,
             borderRadius: BorderRadius.circular(10.r),
             border: Border.all(
-              color: widget.isPrimary ? Colors.transparent : AppColors.glassBorder,
+              color: widget.isPrimary
+                  ? Colors.transparent
+                  : AppColors.glassBorder,
               width: 1.5,
             ),
             boxShadow: (widget.isPrimary && _isHovered)
@@ -352,18 +381,14 @@ class _HeroActionButtonState extends State<_HeroActionButton> {
                       color: AppColors.primary.withOpacity(0.5),
                       blurRadius: 15.r,
                       spreadRadius: 2.r,
-                    )
+                    ),
                   ]
                 : [],
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
-                widget.icon,
-                color: AppColors.textPrimary,
-                size: 18.r,
-              ),
+              Icon(widget.icon, color: AppColors.textPrimary, size: 18.r),
               SizedBox(width: 8.w),
               Text(
                 widget.text,
@@ -387,7 +412,8 @@ class _AnimatedProfileContainer extends StatefulWidget {
   const _AnimatedProfileContainer({required this.size});
 
   @override
-  State<_AnimatedProfileContainer> createState() => _AnimatedProfileContainerState();
+  State<_AnimatedProfileContainer> createState() =>
+      _AnimatedProfileContainerState();
 }
 
 class _AnimatedProfileContainerState extends State<_AnimatedProfileContainer>
@@ -449,7 +475,7 @@ class _AnimatedProfileContainerState extends State<_AnimatedProfileContainer>
                 color: AppColors.primary.withOpacity(0.3),
                 blurRadius: 30.r,
                 spreadRadius: 5.r,
-              )
+              ),
             ],
           ),
           child: ClipOval(

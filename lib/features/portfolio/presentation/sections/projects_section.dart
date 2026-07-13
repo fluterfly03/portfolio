@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../theme/colors.dart';
+import '../../../../core/theme/app_colors.dart';
 
 class Project {
   final String title;
@@ -25,21 +25,24 @@ class ProjectsSection extends StatelessWidget {
   final List<Project> projects = const [
     Project(
       title: "Task Management App",
-      description: "A cross-platform Flutter application for personal and team task management, featuring real-time syncing, offline mode, and push notifications.",
+      description:
+          "A cross-platform Flutter application for personal and team task management, featuring real-time syncing, offline mode, and push notifications.",
       tags: ["Flutter", "Dart", "Firebase", "BLoC"],
       githubUrl: "",
       liveUrl: "",
     ),
     Project(
       title: "Glassmorphism Portfolio",
-      description: "A fully responsive personal portfolio built entirely with Flutter Web, implementing custom animations, rich color palettes, and glassmorphic designs.",
+      description:
+          "A fully responsive personal portfolio built entirely with Flutter Web, implementing custom animations, rich color palettes, and glassmorphic designs.",
       tags: ["Flutter Web", "Responsive", "Glassmorphism"],
       githubUrl: "",
       liveUrl: "",
     ),
     Project(
       title: "E-Commerce System",
-      description: "An online marketplace featuring product catalogs, cart management, and integrated secure payment gateways, built for mobile and web platforms.",
+      description:
+          "An online marketplace featuring product catalogs, cart management, and integrated secure payment gateways, built for mobile and web platforms.",
       tags: ["Flutter", "Hive DB", "Stripe API", "Provider"],
       githubUrl: "",
       liveUrl: "",
@@ -50,10 +53,8 @@ class ProjectsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final isDesktop = width > 900;
-    
-    final crossAxisCount = width > 1100 
-        ? 3 
-        : (width > 700 ? 2 : 1);
+
+    final crossAxisCount = width > 1100 ? 3 : (width > 700 ? 2 : 1);
 
     return Container(
       padding: EdgeInsets.symmetric(
@@ -143,7 +144,7 @@ class _ProjectCardState extends State<_ProjectCard> {
                     color: AppColors.primary.withOpacity(0.15),
                     blurRadius: 20.r,
                     spreadRadius: 1.r,
-                  )
+                  ),
                 ]
               : [],
         ),
@@ -165,10 +166,7 @@ class _ProjectCardState extends State<_ProjectCard> {
                   end: Alignment.bottomRight,
                 ),
                 border: const Border(
-                  bottom: BorderSide(
-                    color: AppColors.glassBorder,
-                    width: 1,
-                  ),
+                  bottom: BorderSide(color: AppColors.glassBorder, width: 1),
                 ),
               ),
               child: Center(
@@ -212,7 +210,10 @@ class _ProjectCardState extends State<_ProjectCard> {
                       runSpacing: 6.h,
                       children: widget.project.tags.map((tag) {
                         return Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10.w,
+                            vertical: 4.h,
+                          ),
                           decoration: BoxDecoration(
                             color: AppColors.primary.withOpacity(0.1),
                             borderRadius: BorderRadius.circular(12.r),
@@ -299,7 +300,9 @@ class _ProjectLinkState extends State<_ProjectLink> {
                 color: _isHovered ? AppColors.primary : AppColors.textSecondary,
                 fontSize: 13.sp,
                 fontWeight: FontWeight.w600,
-                decoration: _isHovered ? TextDecoration.underline : TextDecoration.none,
+                decoration: _isHovered
+                    ? TextDecoration.underline
+                    : TextDecoration.none,
               ),
             ),
           ],

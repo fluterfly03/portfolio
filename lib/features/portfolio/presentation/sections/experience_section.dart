@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../theme/colors.dart';
+import '../../../../core/theme/app_colors.dart';
 
 class ExperienceItem {
   final String role;
@@ -24,19 +24,22 @@ class ExperienceSection extends StatelessWidget {
       role: "Frontend Developer Intern",
       company: "Innovate Tech Labs",
       period: "Jul 2025 - Present",
-      description: "Developed and optimized key features for user-facing web applications. Implemented pixel-perfect responsive layouts using HTML, CSS, and modern framework systems. Worked closely with design teams to refine UI/UX assets.",
+      description:
+          "Developed and optimized key features for user-facing web applications. Implemented pixel-perfect responsive layouts using HTML, CSS, and modern framework systems. Worked closely with design teams to refine UI/UX assets.",
     ),
     ExperienceItem(
       role: "Mobile App Developer",
       company: "Freelance",
       period: "Jan 2024 - Jun 2025",
-      description: "Designed, built, and launched multiple cross-platform Flutter applications on Play Store & App Store. Integrated Firebase services for real-time databases, authentication, and push notifications.",
+      description:
+          "Designed, built, and launched multiple cross-platform Flutter applications on Play Store & App Store. Integrated Firebase services for real-time databases, authentication, and push notifications.",
     ),
     ExperienceItem(
       role: "Open Source Contributor",
       company: "Flutter Community",
       period: "Sep 2023 - Dec 2023",
-      description: "Contributed bug fixes, performance improvements, and documentation edits to popular Flutter packages. Collaborated with global maintainers on GitHub.",
+      description:
+          "Contributed bug fixes, performance improvements, and documentation edits to popular Flutter packages. Collaborated with global maintainers on GitHub.",
     ),
   ];
 
@@ -137,27 +140,21 @@ class _TimelineTileState extends State<_TimelineTile> {
                 decoration: BoxDecoration(
                   color: _isHovered ? AppColors.primary : Colors.transparent,
                   shape: BoxShape.circle,
-                  border: Border.all(
-                    color: AppColors.primary,
-                    width: 3.r,
-                  ),
+                  border: Border.all(color: AppColors.primary, width: 3.r),
                   boxShadow: _isHovered
                       ? [
                           BoxShadow(
                             color: AppColors.primary.withOpacity(0.6),
                             blurRadius: 10.r,
                             spreadRadius: 2.r,
-                          )
+                          ),
                         ]
                       : [],
                 ),
               ),
               if (!widget.isLast)
                 Expanded(
-                  child: Container(
-                    width: 2.w,
-                    color: AppColors.glassBorder,
-                  ),
+                  child: Container(width: 2.w, color: AppColors.glassBorder),
                 ),
             ],
           ),
@@ -172,12 +169,14 @@ class _TimelineTileState extends State<_TimelineTile> {
                 margin: EdgeInsets.only(bottom: 30.h),
                 padding: EdgeInsets.all(24.r),
                 decoration: BoxDecoration(
-                  color: _isHovered 
-                      ? AppColors.primary.withOpacity(0.05) 
+                  color: _isHovered
+                      ? AppColors.primary.withOpacity(0.05)
                       : AppColors.surfaceColor.withOpacity(0.3),
                   borderRadius: BorderRadius.circular(16.r),
                   border: Border.all(
-                    color: _isHovered ? AppColors.primary : AppColors.glassBorder,
+                    color: _isHovered
+                        ? AppColors.primary
+                        : AppColors.glassBorder,
                     width: 1,
                   ),
                   boxShadow: _isHovered
@@ -186,50 +185,27 @@ class _TimelineTileState extends State<_TimelineTile> {
                             color: AppColors.primary.withOpacity(0.1),
                             blurRadius: 12.r,
                             spreadRadius: 1.r,
-                          )
+                          ),
                         ]
                       : [],
                 ),
-                child: LayoutBuilder(
-                  builder: (context, constraints) {
-                    final showSideBySide = widget.isDesktop && constraints.maxWidth > 500.w;
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        if (showSideBySide)
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  widget.item.role,
-                                  style: TextStyle(
-                                    color: AppColors.textPrimary,
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (widget.isDesktop)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              widget.item.role,
+                              style: TextStyle(
+                                color: AppColors.textPrimary,
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.bold,
                               ),
-                              Text(
-                                widget.item.period,
-                                style: TextStyle(
-                                  color: AppColors.secondary,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          )
-                        else ...[
-                          Text(
-                            widget.item.role,
-                            style: TextStyle(
-                              color: AppColors.textPrimary,
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 4.h),
                           Text(
                             widget.item.period,
                             style: TextStyle(
@@ -239,27 +215,45 @@ class _TimelineTileState extends State<_TimelineTile> {
                             ),
                           ),
                         ],
-                        SizedBox(height: 6.h),
-                        Text(
-                          widget.item.company,
-                          style: TextStyle(
-                            color: AppColors.primary,
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
+                      )
+                    else ...[
+                      Text(
+                        widget.item.role,
+                        style: TextStyle(
+                          color: AppColors.textPrimary,
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.bold,
                         ),
-                        SizedBox(height: 12.h),
-                        Text(
-                          widget.item.description,
-                          style: TextStyle(
-                            color: AppColors.textSecondary,
-                            fontSize: 14.sp,
-                            height: 1.5,
-                          ),
+                      ),
+                      SizedBox(height: 4.h),
+                      Text(
+                        widget.item.period,
+                        style: TextStyle(
+                          color: AppColors.secondary,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
                         ),
-                      ],
-                    );
-                  },
+                      ),
+                    ],
+                    SizedBox(height: 6.h),
+                    Text(
+                      widget.item.company,
+                      style: TextStyle(
+                        color: AppColors.primary,
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(height: 12.h),
+                    Text(
+                      widget.item.description,
+                      style: TextStyle(
+                        color: AppColors.textSecondary,
+                        fontSize: 14.sp,
+                        height: 1.5,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

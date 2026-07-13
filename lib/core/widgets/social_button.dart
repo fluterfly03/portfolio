@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../theme/colors.dart';
+import '../theme/app_colors.dart';
 
 class SocialButton extends StatefulWidget {
   final FaIconData icon;
@@ -33,14 +33,12 @@ class _SocialButtonState extends State<SocialButton> {
           width: 44,
           height: 44,
           decoration: BoxDecoration(
-            color: _isHovered 
-                ? AppColors.primary.withOpacity(0.15) 
+            color: _isHovered
+                ? AppColors.primary.withOpacity(0.15)
                 : AppColors.glassBackground,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: _isHovered 
-                  ? AppColors.primary 
-                  : AppColors.glassBorder,
+              color: _isHovered ? AppColors.primary : AppColors.glassBorder,
               width: 1.5,
             ),
             boxShadow: _isHovered
@@ -49,7 +47,7 @@ class _SocialButtonState extends State<SocialButton> {
                       color: AppColors.primary.withOpacity(0.4),
                       blurRadius: 10,
                       spreadRadius: 1,
-                    )
+                    ),
                   ]
                 : [],
           ),
