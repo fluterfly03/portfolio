@@ -76,7 +76,7 @@ class _PortfolioPageState extends State<PortfolioPage> {
                   padding: EdgeInsets.zero,
                   children: [
                     DrawerHeader(
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
                             AppColors.primary,
@@ -143,7 +143,7 @@ class _PortfolioPageState extends State<PortfolioPage> {
           Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [AppColors.backgroundStart, AppColors.backgroundEnd],
                 begin: Alignment.topCenter,
@@ -231,7 +231,7 @@ class _PortfolioPageState extends State<PortfolioPage> {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(vertical: 32.h),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         border: Border(top: BorderSide(color: AppColors.glassBorder, width: 1)),
       ),
       child: Center(

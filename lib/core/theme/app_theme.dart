@@ -9,4 +9,12 @@ class AppTheme {
       textTheme: GoogleFonts.outfitTextTheme(ThemeData.dark().textTheme),
     );
   }
+
+  static ThemeData get lightTheme {
+    return ThemeData(
+      brightness: Brightness.light,
+      scaffoldBackgroundColor: Colors.transparent,
+      textTheme: GoogleFonts.outfitTextTheme(ThemeData.light().textTheme),
+    );
+  }
 }

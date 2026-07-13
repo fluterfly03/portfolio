@@ -1,7 +1,9 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../controllers/theme_controller.dart';
 
 class HexagonPainter extends CustomPainter {
   final Color color;
@@ -65,7 +67,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
           width: double.infinity,
           decoration: BoxDecoration(
             color: Colors.black.withOpacity(0.3),
-            border: const Border(
+            border: Border(
               bottom: BorderSide(color: AppColors.glassBorder, width: 1),
             ),
           ),
@@ -104,7 +106,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
               Container(
                 width: 8.w,
                 height: 8.h,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   color: AppColors.secondary,
                   shape: BoxShape.circle,
                 ),
@@ -127,14 +129,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
                 SizedBox(width: 16.w),
                 // Icons (Theme, Palette, Resume)
-                IconButton(
-                  icon: Icon(
-                    Icons.dark_mode_outlined,
-                    color: AppColors.textSecondary,
-                    size: 20.r,
-                  ),
-                  onPressed: () {},
-                ),
+                const ThemeSelector(),
                 IconButton(
                   icon: Icon(
                     Icons.palette_outlined,
@@ -148,7 +143,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
               ] else ...[
                 // Mobile Menu
                 IconButton(
-                  icon: const Icon(Icons.menu, color: AppColors.textPrimary),
+                  icon: Icon(Icons.menu, color: AppColors.textPrimary),
                   onPressed: onMenuPressed,
                 ),
               ],
@@ -253,6 +248,123 @@ class _ResumeButtonState extends State<_ResumeButton> {
             fontSize: 14.sp,
             fontWeight: FontWeight.bold,
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class ThemeSelector extends StatelessWidget {
+  const ThemeSelector({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final themeCtrl = Get.find<ThemeController>();
+
+    return Obx(() {
+      final currentMode = themeCtrl.themeMode;
+      IconData triggerIcon;
+      switch (currentMode) {
+        case ThemeMode.light:
+          triggerIcon = Icons.light_mode_outlined;
+          break;
+        case ThemeMode.dark:
+          triggerIcon = Icons.dark_mode_outlined;
+          break;
+        case ThemeMode.system:
+          triggerIcon = Icons.monitor_outlined;
+          break;
+      }
+
+      return PopupMenuButton<ThemeMode>(
+        icon: Icon(
+          triggerIcon,
+          color: AppColors.textSecondary,
+          size: 20.r,
+        ),
+        tooltip: 'Appearance',
+        offset: Offset(0, 50.h),
+        color: AppColors.cardBg,
+        surfaceTintColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.r),
+          side: BorderSide(color: AppColors.glassBorder, width: 1.5),
+        ),
+        onSelected: (mode) => themeCtrl.setThemeMode(mode),
+        itemBuilder: (context) => [
+          // Header: APPEARANCE
+          PopupMenuItem<ThemeMode>(
+            enabled: false,
+            height: 28.h,
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Text(
+              'APPEARANCE',
+              style: TextStyle(
+                color: AppColors.textSecondary.withOpacity(0.6),
+                fontSize: 10.sp,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.2,
+              ),
+            ),
+          ),
+          _buildMenuItem(
+            mode: ThemeMode.light,
+            currentMode: currentMode,
+            icon: Icons.light_mode_outlined,
+            label: 'Light',
+          ),
+          _buildMenuItem(
+            mode: ThemeMode.dark,
+            currentMode: currentMode,
+            icon: Icons.dark_mode_outlined,
+            label: 'Dark',
+          ),
+          _buildMenuItem(
+            mode: ThemeMode.system,
+            currentMode: currentMode,
+            icon: Icons.monitor_outlined,
+            label: 'System',
+          ),
+        ],
+      );
+    });
+  }
+
+  PopupMenuItem<ThemeMode> _buildMenuItem({
+    required ThemeMode mode,
+    required ThemeMode currentMode,
+    required IconData icon,
+    required String label,
+  }) {
+    final isSelected = currentMode == mode;
+    return PopupMenuItem<ThemeMode>(
+      value: mode,
+      height: 40.h,
+      padding: EdgeInsets.symmetric(horizontal: 8.w),
+      child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+        decoration: BoxDecoration(
+          color: isSelected ? AppColors.primary : Colors.transparent,
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              color: isSelected ? Colors.white : AppColors.textSecondary,
+              size: 16.r,
+            ),
+            SizedBox(width: 12.w),
+            Text(
+              label,
+              style: TextStyle(
+                color: isSelected ? Colors.white : AppColors.textPrimary,
+                fontSize: 14.sp,
+                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+              ),
+            ),
+          ],
         ),
       ),
     );

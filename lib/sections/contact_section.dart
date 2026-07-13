@@ -237,7 +237,7 @@ class _ContactFormState extends State<_ContactForm> {
                   if (_formKey.currentState!.validate()) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: const Text(
+                        content: Text(
                           "Thank you! Your message has been sent.",
                           style: TextStyle(color: AppColors.textPrimary),
                         ),
@@ -304,11 +304,11 @@ class _ContactFormState extends State<_ContactForm> {
         fillColor: AppColors.backgroundStart.withOpacity(0.4),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.r),
-          borderSide: const BorderSide(color: AppColors.glassBorder),
+          borderSide: BorderSide(color: AppColors.glassBorder),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.r),
-          borderSide: const BorderSide(color: AppColors.glassBorder),
+          borderSide: BorderSide(color: AppColors.glassBorder),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.r),

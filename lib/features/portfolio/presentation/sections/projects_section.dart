@@ -165,7 +165,7 @@ class _ProjectCardState extends State<_ProjectCard> {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
-                border: const Border(
+                border: Border(
                   bottom: BorderSide(color: AppColors.glassBorder, width: 1),
                 ),
               ),

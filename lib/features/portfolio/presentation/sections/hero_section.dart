@@ -76,7 +76,7 @@ class HeroSection extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ShaderMask(
-          shaderCallback: (bounds) => const LinearGradient(
+          shaderCallback: (bounds) => LinearGradient(
             colors: [AppColors.textPrimary, AppColors.textSecondary],
           ).createShader(bounds),
           child: Text(
@@ -90,7 +90,7 @@ class HeroSection extends StatelessWidget {
         ),
         SizedBox(height: 8.h),
         ShaderMask(
-          shaderCallback: (bounds) => const LinearGradient(
+          shaderCallback: (bounds) => LinearGradient(
             colors: [
               AppColors.primary,
               AppColors.secondary,
@@ -605,7 +605,7 @@ class _ScrollDownIndicatorState extends State<_ScrollDownIndicator>
                     child: Container(
                       width: 4.w,
                       height: 4.h,
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         color: AppColors.primary,
                         shape: BoxShape.circle,
                       ),
