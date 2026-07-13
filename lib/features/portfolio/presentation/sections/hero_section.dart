@@ -98,7 +98,7 @@ class HeroSection extends StatelessWidget {
             ],
           ).createShader(bounds),
           child: Text(
-            "Prathmesh\nParab",
+            "Riya\nBiswas",
             textAlign: textAlignment,
             style: TextStyle(
               fontSize: isDesktop ? 68.sp : 44.sp,

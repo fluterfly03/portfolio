@@ -184,7 +184,6 @@ class _PortfolioPageState extends State<PortfolioPage> {
               controller: _scrollController,
               child: Column(
                 children: [
-                  Text("jhfbjh"),
                   SizedBox(height: 70.h), // Push below fixed Nav Bar
                   // Section 0: Home
                   Container(
