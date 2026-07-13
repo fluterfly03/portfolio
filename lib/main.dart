@@ -1,4 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'theme/colors.dart';
+import 'widgets/nav_bar.dart';
+import 'sections/hero_section.dart';
+import 'sections/about_section.dart';
+import 'sections/experience_section.dart';
+import 'sections/skills_section.dart';
+import 'sections/projects_section.dart';
+import 'sections/blogs_section.dart';
+import 'sections/contact_section.dart';
+import 'controllers/navigation_controller.dart';
 
 void main() {
   runApp(const MyApp());
@@ -7,115 +20,240 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    return ScreenUtilInit(
+      designSize: const Size(1440, 900), // Reference design size (Desktop)
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return GetMaterialApp(
+          title: 'Riya Biswas - Portfolio',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            brightness: Brightness.dark,
+            scaffoldBackgroundColor: Colors.transparent,
+            textTheme: GoogleFonts.outfitTextTheme(
+              ThemeData.dark().textTheme,
+            ),
+          ),
+          home: child,
+        );
+      },
+      child: const PortfolioPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+class PortfolioPage extends StatefulWidget {
+  const PortfolioPage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<PortfolioPage> createState() => _PortfolioPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _PortfolioPageState extends State<PortfolioPage> {
+  final NavigationController navCtrl = Get.put(NavigationController());
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  
+  final List<String> _sections = [
+    'Home',
+    'About',
+    'Experience',
+    'Skills',
+    'Projects',
+    'Blogs',
+    'Contact'
+  ];
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  @override
+  void initState() {
+    super.initState();
+    navCtrl.initKeys(_sections.length);
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+    final width = MediaQuery.of(context).size.width;
+    final isDesktop = width > 900;
+
     return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+      key: _scaffoldKey,
+      extendBodyBehindAppBar: true,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(70.h),
+        child: Obx(() => NavBar(
+          activeIndex: navCtrl.activeIndex.value,
+          sections: _sections,
+          onTabSelected: (index) => navCtrl.scrollToIndex(index, scaffoldKey: _scaffoldKey),
+          onMenuPressed: () => _scaffoldKey.currentState?.openDrawer(),
+        )),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
+      drawer: !isDesktop
+          ? Obx(() => Drawer(
+                backgroundColor: AppColors.backgroundStart,
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    DrawerHeader(
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [AppColors.primary, AppColors.backgroundStart],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            'Riya Biswas',
+                            style: TextStyle(
+                              color: AppColors.textPrimary,
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 4.h),
+                          Text(
+                            'Frontend Developer',
+                            style: TextStyle(
+                              color: AppColors.textSecondary,
+                              fontSize: 14.sp,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    ...List.generate(_sections.length, (index) {
+                      final isSelected = index == navCtrl.activeIndex.value;
+                      return ListTile(
+                        title: Text(
+                          _sections[index],
+                          style: TextStyle(
+                            color: isSelected ? AppColors.primary : AppColors.textPrimary,
+                            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                            fontSize: 14.sp,
+                          ),
+                        ),
+                        selected: isSelected,
+                        selectedTileColor: AppColors.primary.withOpacity(0.1),
+                        onTap: () => navCtrl.scrollToIndex(index, scaffoldKey: _scaffoldKey),
+                      );
+                    }),
+                  ],
+                ),
+              ))
+          : null,
+      body: Stack(
+        children: [
+          // Background Gradient decoration
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [AppColors.backgroundStart, AppColors.backgroundEnd],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
+          ),
+          // Subtle Glowing Accents/Orbits in background (Vibrant purple blobs)
+          Positioned(
+            top: 200.h,
+            left: -150.w,
+            child: Container(
+              width: 350.w,
+              height: 350.h,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppColors.primary.withOpacity(0.08),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 300.h,
+            right: -150.w,
+            child: Container(
+              width: 400.w,
+              height: 400.h,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppColors.secondary.withOpacity(0.05),
+              ),
+            ),
+          ),
+          // Scrollable Sections Content
+          SafeArea(
+            top: false, // Let background extend behind status bar
+            child: SingleChildScrollView(
+              controller: navCtrl.scrollController,
+              child: Column(
+                children: [
+                  SizedBox(height: 70.h), // Push below fixed Nav Bar
+                  // Section 0: Home
+                  Container(
+                    key: navCtrl.keys[0],
+                    child: HeroSection(
+                      onViewProjectsTap: () => navCtrl.scrollToIndex(4), // Scroll to Projects (index 4)
+                    ),
+                  ),
+                  // Section 1: About
+                  Container(key: navCtrl.keys[1], child: const AboutSection()),
+                  // Section 2: Experience
+                  Container(key: navCtrl.keys[2], child: const ExperienceSection()),
+                  // Section 3: Skills
+                  Container(key: navCtrl.keys[3], child: const SkillsSection()),
+                  // Section 4: Projects
+                  Container(key: navCtrl.keys[4], child: const ProjectsSection()),
+                  // Section 5: Blogs
+                  Container(key: navCtrl.keys[5], child: const BlogsSection()),
+                  // Section 6: Contact
+                  Container(key: navCtrl.keys[6], child: const ContactSection()),
+                  
+                  // Footer
+                  _buildFooter(),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFooter() {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(vertical: 32.h),
+      decoration: const BoxDecoration(
+        border: Border(
+          top: BorderSide(color: AppColors.glassBorder, width: 1),
+        ),
+      ),
+      child: Center(
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: .center,
           children: [
-            const Text('You have pushed the button this many times:'),
             Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+              "Designed & Built by Riya Biswas ",
+              style: TextStyle(
+                color: AppColors.textSecondary,
+                fontSize: 13.sp,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            SizedBox(height: 6.h),
+            Text(
+              "© 2026 • All Rights Reserved",
+              style: TextStyle(
+                color: AppColors.textSecondary,
+                fontSize: 11.sp,
+              ),
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
